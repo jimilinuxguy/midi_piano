@@ -29,5 +29,52 @@ public class PianoMachineTest {
         System.out.println(midi.history());
         assertEquals(expected0,midi.history());
     }
+    
+    @Test
+    public void doubleNoteTest() throws MidiUnavailableException {
+        String expected0 = "on(65,PIANO) wait(100) off(65,PIANO) wait(100) "
+                + "on(63,PIANO) wait(100) off(63,PIANO)";
+        
+        Midi midi = Midi.getInstance();
+
+        midi.clearHistory();
+        
+        pm.beginNote(new Pitch(5));
+        Midi.wait(100);
+        pm.endNote(new Pitch(5));
+        Midi.wait(100);
+        pm.beginNote(new Pitch(3));
+        Midi.wait(100);
+        pm.endNote(new Pitch(3));
+
+        System.out.println(midi.history());
+        assertEquals(expected0,midi.history());
+    }
+    
+    @Test
+    public void tripleNoteTest() throws MidiUnavailableException {
+        String expected0 = "on(65,PIANO) wait(100) off(65,PIANO) "
+                +"wait(100) on(63,PIANO) wait(100) off(63,PIANO) "
+                +"wait(100) on(61,PIANO) wait(100) off(61,PIANO)";
+        
+        Midi midi = Midi.getInstance();
+
+        midi.clearHistory();
+        
+        pm.beginNote(new Pitch(5));
+        Midi.wait(100);
+        pm.endNote(new Pitch(5));
+        Midi.wait(100);
+        pm.beginNote(new Pitch(3));
+        Midi.wait(100);
+        pm.endNote(new Pitch(3));
+        Midi.wait(100);
+        pm.beginNote(new Pitch(1));
+        Midi.wait(100);
+        pm.endNote(new Pitch(1));
+
+        System.out.println(midi.history());
+        assertEquals(expected0,midi.history());
+    }
 
 }

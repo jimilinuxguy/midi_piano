@@ -24,17 +24,42 @@ public class PianoMachine {
         }
     }
     
-    //TODO write method spec
+    /**
+     * Begin playing note corresponding to pushed key.
+     * 1 -> C, 2-> ^C, 3 -> D, 4 -> ^D, 5 -> E,
+     * 6 -> F, 7 -> ^F, 8 -> G, 9 -> G^, 0 -> A,
+     * - -> ^A, = -> B
+     * 
+     * @param rawPitch the designated pitch to be played
+     */
     public void beginNote(Pitch rawPitch) {
-    	midi.beginNote(new Pitch(0).toMidiFrequency());
-    	//TODO implement for question 1
+        if  ( rawPitch.toString().length() == 1){
+            midi.beginNote(new Pitch(rawPitch.toString().charAt(0)).toMidiFrequency());
+        }
+        else if ( rawPitch.toString().equals("G^") ){
+            midi.beginNote(new Pitch('G').transpose(1).toMidiFrequency());
+        }
+        else{
+            midi.beginNote(new Pitch(rawPitch.toString().charAt(1)).transpose(1).toMidiFrequency());
+        }
 
     }
     
-    //TODO write method spec
+    /**
+     * Stop playing note corresponding to released key.
+     * 
+     * @param rawPitch the designated pitch to be stopped
+     */
     public void endNote(Pitch rawPitch) {
-    	midi.endNote(new Pitch(0).toMidiFrequency());
-    	//TODO implement for question 1
+        if  ( rawPitch.toString().length() == 1){
+            midi.endNote(new Pitch(rawPitch.toString().charAt(0)).toMidiFrequency());
+        }
+        else if ( rawPitch.toString().equals("G^") ){
+            midi.endNote(new Pitch('G').transpose(1).toMidiFrequency());
+        }
+        else{
+            midi.endNote(new Pitch(rawPitch.toString().charAt(1)).transpose(1).toMidiFrequency());
+        }
     }
     
     //TODO write method spec
