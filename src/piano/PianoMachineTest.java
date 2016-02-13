@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import javax.sound.midi.MidiUnavailableException;
 
+import midi.Instrument;
 import midi.Midi;
 import music.Pitch;
 
@@ -76,5 +77,19 @@ public class PianoMachineTest {
         System.out.println(midi.history());
         assertEquals(expected0,midi.history());
     }
-
+    @Test
+    public void instrumentTest() throws MidiUnavailableException {
+   	 	
+   	 // Middle case test.
+   	 Instrument expected0 = Instrument.BRIGHT_PIANO;
+   	 pm.changeInstrument();
+   	 assertEquals(expected0, pm.CURRENT_INSTRUMENT);
+   	 	
+   	 // Boundary case test.
+   	 Instrument expected1 = Instrument.PIANO;
+   	 pm.CURRENT_INSTRUMENT = Instrument.GUNSHOT;
+   	 pm.changeInstrument();
+   	 assertEquals(expected1, pm.CURRENT_INSTRUMENT);
+    }
+    
 }

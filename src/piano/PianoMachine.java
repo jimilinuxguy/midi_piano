@@ -1,6 +1,7 @@
 package piano;
 
 import javax.sound.midi.MidiUnavailableException;
+import midi.Instrument;
 
 import midi.Midi;
 import music.Pitch;
@@ -8,7 +9,8 @@ import music.Pitch;
 public class PianoMachine {
 	
 	private Midi midi;
-    
+	public Instrument CURRENT_INSTRUMENT = Midi.DEFAULT_INSTRUMENT;    
+	
 	/**
 	 * constructor for PianoMachine.
 	 * 
@@ -62,9 +64,12 @@ public class PianoMachine {
         }
     }
     
-    //TODO write method spec
+    /**
+     * Cycle the current instrument in the default ordering.
+     * @modifies CURRENT_INSTRUMENT
+     */
     public void changeInstrument() {
-       	//TODO: implement for question 2
+    	CURRENT_INSTRUMENT = CURRENT_INSTRUMENT.next();
     }
     
     //TODO write method spec
