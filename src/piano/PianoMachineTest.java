@@ -92,4 +92,30 @@ public class PianoMachineTest {
    	 assertEquals(expected1, pm.CURRENT_INSTRUMENT);
     }
     
+	@Test
+	public void octaveTest() throws MidiUnavailableException {
+		//Not quite working yet.
+		Midi midi = Midi.getInstance();
+
+    	midi.clearHistory();
+    	Pitch testy = new Pitch(1);
+    	
+    	pm.beginNote(testy);
+		Midi.wait(100);
+		pm.endNote(testy);
+
+		pm.shiftUp();
+        pm.beginNote(testy);
+		Midi.wait(100);
+		pm.endNote(testy);
+		
+		pm.shiftDown();
+		pm.beginNote(testy);
+		Midi.wait(100);
+		pm.endNote(testy);
+		
+        System.out.println(midi.history());
+ //       assertEquals(expected0,midi.history());
+
+	}
 }

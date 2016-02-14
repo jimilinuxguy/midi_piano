@@ -9,6 +9,7 @@ import music.Pitch;
 public class PianoMachine {
 	
 	private Midi midi;
+	public int octave = 0;
 	public Instrument CURRENT_INSTRUMENT = Midi.DEFAULT_INSTRUMENT;    
 	
 	/**
@@ -35,7 +36,21 @@ public class PianoMachine {
      * @param rawPitch the designated pitch to be played
      */
     public void beginNote(Pitch rawPitch) {
-        if  ( rawPitch.toString().length() == 1){
+    	switch(octave){
+    	case 1:  rawPitch.transpose(Pitch.OCTAVE);
+    			 break;
+    	case 2:  rawPitch.transpose(Pitch.OCTAVE);
+    			 rawPitch.transpose(Pitch.OCTAVE);
+    			 break;
+    	case -1: rawPitch.transpose(-Pitch.OCTAVE);
+				 break;
+    	case -2: rawPitch.transpose(-Pitch.OCTAVE);
+    			 rawPitch.transpose(-Pitch.OCTAVE);
+    			 break;
+    	default:
+     	}
+
+    	if  ( rawPitch.toString().length() == 1){
             midi.beginNote(new Pitch(rawPitch.toString().charAt(0)).toMidiFrequency());
         }
         else if ( rawPitch.toString().equals("G^") ){
@@ -53,6 +68,20 @@ public class PianoMachine {
      * @param rawPitch the designated pitch to be stopped
      */
     public void endNote(Pitch rawPitch) {
+    	//
+    	switch(octave){
+    	case 1:  rawPitch.transpose(Pitch.OCTAVE);
+    			 break;
+    	case 2:  rawPitch.transpose(Pitch.OCTAVE);
+    			 rawPitch.transpose(Pitch.OCTAVE);
+    			 break;
+    	case -1: rawPitch.transpose(-Pitch.OCTAVE);
+				 break;
+    	case -2: rawPitch.transpose(-Pitch.OCTAVE);
+    			 rawPitch.transpose(-Pitch.OCTAVE);
+    			 break;
+    	default:
+     	}
         if  ( rawPitch.toString().length() == 1){
             midi.endNote(new Pitch(rawPitch.toString().charAt(0)).toMidiFrequency());
         }
@@ -74,12 +103,12 @@ public class PianoMachine {
     
     //TODO write method spec
     public void shiftUp() {
-    	//TODO: implement for question 3
+    	if(octave < 2){octave++;}
     }
     
     //TODO write method spec
     public void shiftDown() {
-    	//TODO: implement for question 3
+    	if(octave > -2){octave--;}
     }
     
     //TODO write method spec
